@@ -30,3 +30,5 @@ import { CoordinatorsModule } from './app/coordinators/coordinator.module';
   providers: [],
 })
 export class AppModule {}
+
+// Comentário teste
