@@ -6,12 +6,12 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './Pipes/jwt.strategy';
 import { LocalStrategy } from './Pipes/local.strategy';
-import { UsuariosModule } from 'src/app/users/user.module';
+import { UsersModule } from 'src/app/users/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    UsuariosModule,
+    UsersModule,
     PassportModule,
     JwtModule.register({
       privateKey: 'chaveParaTeste',

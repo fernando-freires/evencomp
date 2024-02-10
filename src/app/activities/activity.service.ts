@@ -19,7 +19,16 @@ export class ActivityService {
 
   async getAllActivities() {
     return await this.activityRepository.find({
-      select: ['id'],
+      select: [
+        'id',
+        'title',
+        'description',
+        'dateStart',
+        'dateEnd',
+        'location',
+        'Event_id',
+        'category',
+      ],
     });
   }
 

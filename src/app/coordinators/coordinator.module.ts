@@ -10,4 +10,4 @@ import { CoordinatorService } from './coordinator.service';
   providers: [CoordinatorService],
   exports: [CoordinatorService],
 })
-export class CoodinatorsModule {}
+export class CoordinatorsModule {}

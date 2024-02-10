@@ -17,22 +17,23 @@ import { ActivityService } from './activity.service';
 
 @Controller('api/evencomp/activities')
 export class ActivityController {
-  constructor(private readonly activitiesService: ActivityService) {}
+  constructor(private readonly activityService: ActivityService) {}
+  @UseGuards(AuthGuard('jwt'))
   @Post('add')
-  async createActivityr(@Body() body: ActivityDto) {
-    return await this.activitiesService.createActivity(body);
+  async createActivity(@Body() body: ActivityDto) {
+    return await this.activityService.createActivity(body);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('getAll')
   async getAllActivities() {
-    return await this.activitiesService.getAllActivities();
+    return await this.activityService.getAllActivities();
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('get/:id')
   async getActivityById(@Param('id') id: string) {
-    return await this.activitiesService.getActivityById(id);
+    return await this.activityService.getActivityById(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -41,13 +42,13 @@ export class ActivityController {
     @Param('id') id: string,
     @Body() body: ActivityUpdateDto,
   ) {
-    return await this.activitiesService.updateActivity(id, body);
+    return await this.activityService.updateActivity(id, body);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('delete/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteActivity(@Param('id') id: string) {
-    return await this.activitiesService.deleteActivity(id);
+    return await this.activityService.deleteActivity(id);
   }
 }
