@@ -13,7 +13,7 @@ import { CoordinatorsModule } from './app/coordinators/coordinator.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
+      port: 5433,
       username: 'postgres',
       password: '1234',
       database: 'evencomp_database',

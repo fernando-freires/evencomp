@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    db:
+        image: postgres:12
+        ports:
+            - '5433:5432'
+        environment:
+            POSTGRES_USER: 'postgres'
+            POSTGRES_PASSWORD: '1234'
+            POSTGRES_DB: 'evencomp_database'
+        volumes:
+            - ./database/postgres/docker-entrypoint-initdb:/docker-entrypoint-initdb.d/
+        networks:
+            - postgres-network
+
+networks:
+    postgres-network:
+        driver: bridge
