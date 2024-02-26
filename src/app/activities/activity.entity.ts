@@ -12,10 +12,19 @@ export class ActivityEntity {
   description: string;
 
   @Column()
+  speaker: string;
+
+  @Column()
   dateStart: Date;
 
   @Column()
   dateEnd: Date;
+
+  @Column()
+  startTime: Date;
+
+  @Column()
+  duration: string;
 
   @Column()
   location: string;
@@ -24,5 +33,11 @@ export class ActivityEntity {
   category: string;
 
   @Column()
-  Event_id: string;
+  status: boolean;
+
+  @Column({ nullable: true })
+  event_id?: string | null;
+
+  @Column()
+  subscribersLimit: number;
 }

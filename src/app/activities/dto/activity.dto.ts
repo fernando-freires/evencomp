@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class ActivityDto {
   @IsNotEmpty()
@@ -11,11 +17,23 @@ export class ActivityDto {
 
   @IsNotEmpty()
   @IsString()
+  speaker: string;
+
+  @IsNotEmpty()
+  @IsString()
   dateStart: Date;
 
   @IsNotEmpty()
   @IsString()
   dateEnd: Date;
+
+  @IsNotEmpty()
+  @IsString()
+  startTime: Date;
+
+  @IsNotEmpty()
+  @IsString()
+  duration: string;
 
   @IsNotEmpty()
   @IsString()
@@ -26,6 +44,14 @@ export class ActivityDto {
   category: string;
 
   @IsNotEmpty()
+  @IsBoolean()
+  status: boolean;
+
+  @IsOptional()
   @IsString()
-  Event_id: string;
+  event_id?: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  subscribersLimit: number;
 }

@@ -5,7 +5,7 @@ import { EventsModule } from './app/events/event.module';
 import { UsersModule } from './app/users/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ActivityModule } from './app/activities/activity.module';
-import { CoordinatorsModule } from './app/coordinators/coordinator.module';
+import { UserEventsModule } from './app/userEvents/userEvent.module';
 
 @Module({
   imports: [
@@ -23,8 +23,8 @@ import { CoordinatorsModule } from './app/coordinators/coordinator.module';
     UsersModule,
     EventsModule,
     ActivityModule,
-    CoordinatorsModule,
     AuthModule,
+    UserEventsModule,
   ],
   controllers: [],
   providers: [],

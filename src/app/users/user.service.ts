@@ -19,7 +19,7 @@ export class UserService {
 
   async getAllUsers() {
     return await this.usuarioRepository.find({
-      select: ['id', 'name', 'email', 'cpf', 'type', 'admin'],
+      select: ['id', 'name', 'email', 'type', 'admin'],
     });
   }
 

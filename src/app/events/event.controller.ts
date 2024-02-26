@@ -11,17 +11,17 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { EventService } from './event.service';
-import { EventUpdateDTO } from './dto/event.update.dto';
 import { EventDTO } from './dto/event.dto';
+import { EventUpdateDTO } from './dto/event.update.dto';
+import { EventService } from './event.service';
 
 @Controller('api/evencomp/events')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
   @UseGuards(AuthGuard('jwt'))
-  @Post('add')
-  async createEvent(@Body() body: EventDTO) {
-    return await this.eventService.createEvent(body);
+  @Post('add/:userId')
+  async createEvent(@Param('userId') userId: string, @Body() body: EventDTO) {
+    return await this.eventService.createEvent(body, userId);
   }
 
   @UseGuards(AuthGuard('jwt'))

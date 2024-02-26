@@ -1,20 +1,32 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { EventEntity } from './event.entity';
+import { UserService } from '../users/user.service';
 import { EventDTO } from './dto/event.dto';
 import { EventUpdateDTO } from './dto/event.update.dto';
+import { EventEntity } from './event.entity';
 
 @Injectable()
 export class EventService {
   constructor(
     @InjectRepository(EventEntity)
     private readonly eventRepository: Repository<EventEntity>,
+    private readonly userService: UserService,
   ) {}
 
-  async createEvent(data: EventDTO) {
-    const evento = await this.eventRepository.create(data);
-    return await this.eventRepository.save(evento);
+  async createEvent(data: EventDTO, userId: string) {
+    const user = await this.userService.getUserById(userId);
+
+    try {
+      if (user.admin) {
+        const evento = await this.eventRepository.create(data);
+        return await this.eventRepository.save(evento);
+      }
+    } catch (error) {
+      throw new NotFoundException(
+        `Erro no código a seguir: \n\n${error.message}`,
+      );
+    }
   }
 
   async getAllEvents() {

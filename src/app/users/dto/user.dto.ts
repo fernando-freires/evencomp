@@ -1,4 +1,10 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class UserDTO {
   @IsNotEmpty()
@@ -17,7 +23,7 @@ export class UserDTO {
   @IsString()
   cpf: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   type?: string;
 

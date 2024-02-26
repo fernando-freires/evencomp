@@ -1,16 +1,13 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'eventos por usuario' })
-export class EventEntity {
+export class UserEventEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  User_id: string;
+  user_id: string;
 
   @Column()
-  Events_id: string;
-
-  @Column()
-  Activities_id: string;
+  activity_id: string;
 }

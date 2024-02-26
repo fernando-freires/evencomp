@@ -19,9 +19,12 @@ import { ActivityService } from './activity.service';
 export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
   @UseGuards(AuthGuard('jwt'))
-  @Post('add')
-  async createActivity(@Body() body: ActivityDto) {
-    return await this.activityService.createActivity(body);
+  @Post('add/:userId')
+  async createActivity(
+    @Param('userId') userId: string,
+    @Body() body: ActivityDto,
+  ) {
+    return await this.activityService.createActivity(body, userId);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -46,9 +49,12 @@ export class ActivityController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Delete('delete/:id')
+  @Delete('delete/:userId/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteActivity(@Param('id') id: string) {
-    return await this.activityService.deleteActivity(id);
+  async deleteActivity(
+    @Param('userId') userId: string,
+    @Param('id') id: string,
+  ) {
+    return await this.activityService.deleteActivity(userId, id);
   }
 }

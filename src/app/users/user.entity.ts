@@ -18,8 +18,8 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @Column()
-  type?: string;
+  @Column({ nullable: true })
+  type?: string | null;
 
   @Column()
   admin: boolean;

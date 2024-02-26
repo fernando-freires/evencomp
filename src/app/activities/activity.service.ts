@@ -4,17 +4,27 @@ import { Repository } from 'typeorm';
 import { ActivityDto } from './dto/activity.dto';
 import { ActivityUpdateDto } from './dto/activity.update.dto';
 import { ActivityEntity } from './activity.entity';
+import { UserService } from '../users/user.service';
 
 @Injectable()
 export class ActivityService {
   constructor(
     @InjectRepository(ActivityEntity)
     private readonly activityRepository: Repository<ActivityEntity>,
+    private readonly userService: UserService,
   ) {}
 
-  async createActivity(data: ActivityDto) {
-    const activity = await this.activityRepository.create(data);
-    return await this.activityRepository.save(activity);
+  async createActivity(data: ActivityDto, userId: string) {
+    const user = await this.userService.getUserById(userId);
+
+    try {
+      if (user.admin) {
+        const activity = await this.activityRepository.create(data);
+        return await this.activityRepository.save(activity);
+      }
+    } catch (error) {
+      throw new NotFoundException(`${error.message}`);
+    }
   }
 
   async getAllActivities() {
@@ -26,8 +36,13 @@ export class ActivityService {
         'dateStart',
         'dateEnd',
         'location',
-        'Event_id',
+        'event_id',
         'category',
+        'duration',
+        'speaker',
+        'startTime',
+        'status',
+        'subscribersLimit',
       ],
     });
   }
@@ -38,9 +53,7 @@ export class ActivityService {
         where: { id: id },
       });
     } catch (error) {
-      throw new NotFoundException(
-        `Erro no código a seguir: \n\n${error.message}`,
-      );
+      throw new NotFoundException(`${error.message}`);
     }
   }
 
@@ -52,8 +65,16 @@ export class ActivityService {
     return await this.activityRepository.save(activities);
   }
 
-  async deleteActivity(id: string) {
-    await this.activityRepository.findOne({ where: { id } });
-    this.activityRepository.delete(id);
+  async deleteActivity(userId: string, id: string) {
+    const user = await this.userService.getUserById(userId);
+
+    try {
+      if (user.admin) {
+        await this.activityRepository.findOne({ where: { id } });
+        this.activityRepository.delete(id);
+      }
+    } catch (error) {
+      throw new NotFoundException(`${error.message}`);
+    }
   }
 }
